@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'Home.dart';
+import 'mainPanel.dart';
 
 class PopupDialog extends StatefulWidget {
   @override
@@ -107,7 +109,6 @@ class _PopupDialogState extends State<PopupDialog> {
       context: context,
       type: AlertType.success,
       title: "Already have an account?",
-      //desc: "Flutter is more awesome with RFlutter Alert.",
       buttons: [
         DialogButton(
           child: Text(
@@ -314,6 +315,10 @@ class _PopupDialogState extends State<PopupDialog> {
                     address.clear();
                     pass.clear();*/
                   });
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => home()),
+                  );
                 }
               }),
           DialogButton(
@@ -395,7 +400,12 @@ class _PopupDialogState extends State<PopupDialog> {
               "LOGIN",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            //onPressed: () => _onAlertButtonsPressed(context),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => home()),
+              );
+            },
             gradient: LinearGradient(colors: [
               Color(0xff00FF00),
               Color.fromRGBO(0, 179, 134, 1.0),
