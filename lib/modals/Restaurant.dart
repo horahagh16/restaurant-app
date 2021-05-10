@@ -6,6 +6,7 @@ class Restaurant {
   List kind;
   String phone_number;
   String password;
+  List<String> comment=List.empty(growable: true);
 
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {
@@ -34,5 +35,8 @@ class Restaurant {
 
   String getPassword() {
     return password;
+  }
+  String getcomment(int index){
+    return comment.elementAt(index);
   }
 }

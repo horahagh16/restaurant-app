@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'loginScreen.dart';
+import 'package:restaurant_app/screens/areas.dart';
+import 'package:restaurant_app/screens/reports.dart';
+import 'comments.dart';
+import 'menu.dart';
+import 'orders.dart';
 
 class mainPanel extends StatefulWidget {
   @override
@@ -36,6 +40,7 @@ class _mainPanelState extends State<mainPanel> {
                 leading: Icon(Icons.account_circle),
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Profile'),
+                //onTap: ,
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -74,6 +79,10 @@ class _mainPanelState extends State<mainPanel> {
                             ),
                             onTap: () {
                               print(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => orders()));
                             },
                           ),
                           Center(
@@ -100,11 +109,15 @@ class _mainPanelState extends State<mainPanel> {
                             ),
                             onTap: () {
                               print(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => menu()));
                             },
                           ),
                           Column(
                             children: [
-                              const Text("\nEdit menu",
+                              const Text("\nEdit Menu",
                                   style: TextStyle(color: Color(0xff7f1019))),
                             ],
                           ),
@@ -128,11 +141,15 @@ class _mainPanelState extends State<mainPanel> {
                             ),
                             onTap: () {
                               print(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => comment()));
                             },
                           ),
                           Column(
                             children: [
-                              const Text("\nManage comments",
+                              const Text("\nManage Comments",
                                   style: TextStyle(color: Color(0xff7f1019))),
                             ],
                           ),
@@ -156,6 +173,10 @@ class _mainPanelState extends State<mainPanel> {
                             ),
                             onTap: () {
                               print(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => report()));
                             },
                           ),
                           Column(
@@ -168,6 +189,38 @@ class _mainPanelState extends State<mainPanel> {
                       ),
                     ),
                     color: Color(0xfffffdaf),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          InkResponse(
+                            child: Image.asset(
+                              'assets/images/area.png',
+                              height: 110,
+                              width: 110,
+                              colorBlendMode: BlendMode.darken,
+                              fit: BoxFit.fill,
+                            ),
+                            onTap: () {
+                              print(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => areas()));
+                            },
+                          ),
+                          Column(
+                            children: [
+                              const Text("\nSupport Areas",
+                                  style: TextStyle(color: Color(0xff7f1019))),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    color: Color(0xfffffee0),
                   ),
                 ].toList(),
               ),
