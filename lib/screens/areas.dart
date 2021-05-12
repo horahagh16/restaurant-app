@@ -63,10 +63,12 @@ class _areasState extends State<areas> {
                     onPressed: () {
                       setState(() {
                         Area.add(area.text);
+                        area.clear();
                         //Navigator.pop(context);
                       });
                     },
                   ),
+                  Padding(padding: EdgeInsets.all(5)),
                   ElevatedButton(
                     child: Text('DELETE',style: TextStyle(color: Colors.red.shade400),),
                     onPressed: () {

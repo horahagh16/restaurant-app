@@ -6,6 +6,7 @@ import 'Home.dart';
 import 'mainPanel.dart';
 
 class PopupDialog extends StatefulWidget {
+  const PopupDialog({Key key}) : super(key: key);
   @override
   _PopupDialogState createState() => _PopupDialogState();
 }
@@ -181,6 +182,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("FastFood");
                     setState(() {
                       s1 = !s1;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s1,
@@ -192,6 +196,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("Iranian");
                     setState(() {
                       s2 = !s2;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s2,
@@ -203,6 +210,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("Italian");
                     setState(() {
                       s3 = !s3;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s3,
@@ -214,6 +224,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("Seafood");
                     setState(() {
                       s4 = !s4;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s4,
@@ -225,6 +238,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("Vegetarian");
                     setState(() {
                       s5 = !s5;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s5,
@@ -236,6 +252,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     kind.add("Others");
                     setState(() {
                       s6 = !s6;
+                      if (Navigator.canPop(context)) {
+                        _onAlertWithCustomContentPressed(context);
+                      }
                     });
                   },
                   selected: s6,

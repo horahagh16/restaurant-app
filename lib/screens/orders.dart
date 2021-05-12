@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/screens/OrderList.dart';
 
 class orders extends StatefulWidget {
   @override
@@ -28,10 +29,11 @@ class _ordersState extends State<orders> {
 }
 
 class Sent {
-  static bool sent = false;
+  static bool sent = OrderDetails().sent;
 
   static void convert() {
     sent = !sent;
+    OrderDetails().sent = sent;
   }
 }
 
@@ -51,8 +53,8 @@ List<Item> generateItems(int numberOfItems) {
   return List<Item>.generate(numberOfItems, (int index) {
     index++;
     return Item(
-      headerValue: 'Order $index',
-      expandedValue: 'Pizza, Soda, Salad',
+      headerValue: OrderDetails().name,
+      expandedValue: OrderDetails().item,
     );
   });
 }
@@ -65,18 +67,18 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final List<Item> _data = generateItems(2);
+  final List<Item> _data = generateItems(1);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        child: _buildPanel(),
+        child: buildPanel(),
       ),
     );
   }
 
-  Widget _buildPanel() {
+  Widget buildPanel() {
     return ExpansionPanelList(
       dividerColor: Color(0xff7f1019),
       expandedHeaderPadding: EdgeInsets.all(3),
@@ -99,7 +101,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             subtitle: Column(
               children: [
                 Text('\n'),
-                Text('unknown user from tehran sent order 992430'),
                 Row(
                   children: [
                     Text("Preparing"),
