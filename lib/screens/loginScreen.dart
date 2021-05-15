@@ -7,11 +7,14 @@ import 'mainPanel.dart';
 
 class PopupDialog extends StatefulWidget {
   const PopupDialog({Key key}) : super(key: key);
+
   @override
   _PopupDialogState createState() => _PopupDialogState();
 }
 
 class _PopupDialogState extends State<PopupDialog> {
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   bool is_alreadyused(String number, List<Restaurant> list) {
     bool status = false;
     if (list.contains(number)) {
@@ -48,8 +51,6 @@ class _PopupDialogState extends State<PopupDialog> {
       _obscureText = !_obscureText;
     });
   }
-
-  var _formkey = GlobalKey<FormState>();
 
   int phone_number;
   List kind = List.empty(growable: true);
@@ -264,10 +265,12 @@ class _PopupDialogState extends State<PopupDialog> {
             ),
             TextFormField(
               controller: phoneNumber,
+              key: _formKey,
               validator: (String value) {
                 if (is_alreadyused(phoneNumber.text, Restaurants.restaurants)) {
                   'this number was taken';
                 }
+                //return null;
               },
               decoration: InputDecoration(
                 icon: Icon(

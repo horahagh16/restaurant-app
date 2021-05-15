@@ -17,6 +17,7 @@ class _reportState extends State<report> {
 
   static List<Widget> _widgetOptions = <Widget>[
     MyStatefulWidget(),
+    Mystatefull(),
     Text(
       'Index 1: Business',
     ),
@@ -156,6 +157,117 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           isExpanded: item.isExpanded,
         );
       }).toList(),
+    );
+  }
+}
+
+class Mystatefull extends StatefulWidget {
+  @override
+  _MystatefullState createState() => _MystatefullState();
+}
+
+class _MystatefullState extends State<Mystatefull> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          children: [
+            Padding(padding: EdgeInsets.all(5)),
+            Card(
+              child: MyStatelessWidget(),
+            ),
+            Padding(padding: EdgeInsets.all(5)),
+            Card(
+              child: MyStatelessWidget2(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyStatelessWidget extends StatelessWidget {
+  const MyStatelessWidget({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DataTable(
+      columns: const <DataColumn>[
+        DataColumn(
+          label: Text(
+            'Report of',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Number',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Sum(T)',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+      ],
+      headingRowColor: MaterialStateColor.resolveWith(
+        (states) => Color(0xff7f1019),
+      ),
+      rows: const <DataRow>[
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('To Day Sales')),
+            DataCell(Text('4')),
+            DataCell(Text('600000')),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class MyStatelessWidget2 extends StatelessWidget {
+  const MyStatelessWidget2({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DataTable(
+      headingRowColor: MaterialStateColor.resolveWith(
+        (states) => Color(0xff7f1019),
+      ),
+      columns: const <DataColumn>[
+        DataColumn(
+          label: Text(
+            'Report of',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Number',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+        DataColumn(
+          label: Text(
+            'Sum(T)',
+            style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+        ),
+      ],
+      rows: const <DataRow>[
+        DataRow(
+          cells: <DataCell>[
+            DataCell(Text('Total Sales')),
+            DataCell(Text('22')),
+            DataCell(Text('22000000')),
+          ],
+        ),
+      ],
     );
   }
 }
