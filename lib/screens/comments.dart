@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:restaurant_app/modals/Restaurant.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
+import 'package:restaurant_app/screens/loginScreen.dart';
+
 class comment extends StatefulWidget {
   @override
   _commentState createState() => _commentState();
@@ -7,8 +11,10 @@ class comment extends StatefulWidget {
 
 class _commentState extends State<comment> {
   TextEditingController answer;
+
   //String Answer;
   List<String> Answer = List.empty(growable: true);
+
   @override
   void initState() {
     answer = TextEditingController();
@@ -17,6 +23,7 @@ class _commentState extends State<comment> {
 
   void dispose() {
     answer.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,102 +42,245 @@ class _commentState extends State<comment> {
         ),
         title: Text('Manage comments'),
       ),
-      body: ListView(children: [
-        GestureDetector(
-          child: Card(
-            child: ListTile(
-              title: Text("COMMENT"),
-              subtitle: Row(
-                children: [
-                  Text("Accept: "),
-                  Switch(
-                    value: Accept.accept,
-                    onChanged: (value) {
-                      setState(() {
-                        Accept.convert();
-                      });
-                    },
-                    activeTrackColor: Colors.lightGreenAccent[100],
-                    activeColor: Colors.green,
-                  ),
-                ],
-              ),
-              trailing: Column(
-                children: [
-                  RaisedButton(
-                    child: Text(
-                      "ANSWER",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    disabledColor: Color(0xff7f1019),
-                    color: Color(0xff7f1019),
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              padding: EdgeInsets.all(5),
-                              child: SingleChildScrollView(
-                                child: Container(
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 15, right: 15, bottom: 30),
-                                        child: TextField(
-                                          controller: answer,
-                                          keyboardType: TextInputType.multiline,
-                                          maxLines: null,
-                                          decoration: InputDecoration(
-                                              labelText: ShowAnswer.getAnswer()),
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        child: Text('SEND'),
-                                        onPressed: () {
-                                          setState(() {
-                                            ShowAnswer.deleter();
-                                            ShowAnswer.add(answer.text);
-                                            Navigator.pop(context);
-                                          });
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
+      body: ListView.builder(
+          itemCount:
+              Restaurants.getRestaurants().elementAt(index).comment.length,
+          itemBuilder: (context, int ind) {
+            return GestureDetector(
+              child: Card(
+                child: ListTile(
+                  title: Text(Restaurants.getRestaurants()
+                      .elementAt(index)
+                      .comment
+                      .elementAt(ind)
+                      .text),
+                  subtitle: Row(
+                    children: [
+                      Text("Accept:"),
+                      Switch(
+                        value: Restaurants.getRestaurants()
+                            .elementAt(index)
+                            .comment
+                            .elementAt(ind)
+                            .accept,
+                        onChanged: (value) {
+                          setState(() {
+                            Restaurants.getRestaurants()
+                                .elementAt(index)
+                                .comment
+                                .elementAt(ind)
+                                .acceptIt();
                           });
-                    },
+                        },
+                        activeTrackColor: Colors.lightGreenAccent[100],
+                        activeColor: Colors.green,
+                      ),
+                    ],
                   ),
-                ],
+                  trailing: Column(
+                    children: [
+                      RaisedButton(
+                        child: Text(
+                          "ANSWER",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        disabledColor: Color(0xff7f1019),
+                        color: Color(0xff7f1019),
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return Container(
+                                  padding: EdgeInsets.all(5),
+                                  child: SingleChildScrollView(
+                                    child: Container(
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                bottom: 30),
+                                            child: TextField(
+                                              controller: answer,
+                                              keyboardType:
+                                                  TextInputType.multiline,
+                                              maxLines: null,
+                                              decoration: InputDecoration(
+                                                  labelText: Restaurants
+                                                          .getRestaurants()
+                                                      .elementAt(index)
+                                                      .comment
+                                                      .elementAt(ind)
+                                                      .answer),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            child: Text('SEND'),
+                                            onPressed: () {
+                                              setState(() {
+                                                Restaurants.getRestaurants()
+                                                    .elementAt(index)
+                                                    .comment
+                                                    .elementAt(ind)
+                                                    .answerIt(answer.text);
+                                                ShowAnswer.deleter();
+                                                ShowAnswer.add(answer.text);
+                                                answer.clear();
+                                                Navigator.pop(context);
+                                              });
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                      ),
+                    ],
+                  ),
+                  tileColor:Color(0xfff5f5f5),
+                ),
               ),
-              tileColor: Color(0xfffffee0),
-            ),
-          ),
-        )
-      ]),
+            );
+          }),
     );
   }
 }
-class Accept{
-  static bool accept=false;
-  static void convert(){
-    accept=!accept;
+
+class Accept {
+  static bool accept = false;
+
+  static void convert() {
+    accept = !accept;
   }
 }
+
 class ShowAnswer {
   static String ans = '';
 
   static void add(String text) {
-    ans = ans  + text;
+    ans = ans + text;
   }
 
   static String getAnswer() {
     return ans;
   }
-  static String deleter(){
-    ans='';
+
+  static String deleter() {
+    ans = '';
     return ans;
   }
 }
+/*
+ListView
+(
+children: [
+GestureDetector
+(
+child: Card
+(
+child: ListTile
+(
+title: Text
+("COMMENT
+"
+)
+,
+subtitle: Row
+(
+children: [
+Text
+("Accept: 
+"
+)
+,
+Switch
+(
+value: Accept.accept,onChanged: (
+value) {
+setState(() {
+Accept.convert();
+});
+},
+activeTrackColor: Colors.lightGreenAccent[100
+]
+,
+activeColor: Colors.green,)
+,
+]
+,
+)
+,
+trailing: Column
+(
+children: [
+RaisedButton
+(
+child: Text
+("ANSWER
+"
+,
+style: TextStyle
+(
+color: Colors.white),
+)
+,
+disabledColor: Color
+(0xff7f1019)
+,
+color: Color
+(0xff7f1019)
+,
+onPressed: () {
+showModalBottomSheet(
+context: context,
+builder: (context) {
+return Container(
+padding: EdgeInsets.all(5),
+child: SingleChildScrollView(
+child: Container(
+child: Column(
+children: [
+Padding(
+padding: EdgeInsets.only(
+left: 15, right: 15, bottom: 30),
+child: TextField(
+controller: answer,
+keyboardType: TextInputType.multiline,
+maxLines: null,
+decoration: InputDecoration(
+labelText: ShowAnswer.getAnswer()),
+),
+),
+ElevatedButton(
+child: Text('SEND'),
+onPressed: () {
+setState(() {
+ShowAnswer.deleter();
+ShowAnswer.add(answer.text);
+Navigator.pop(context);
+});
+},
+)
+],
+),
+),
+),
+);
+});
+},
+)
+,
+]
+,
+)
+,
+tileColor: Color
+(0xfffffee0),
+),
+),
+)
+]),*/

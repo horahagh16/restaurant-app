@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
+import 'package:restaurant_app/modals/Restaurant.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
+import 'package:restaurant_app/screens/loginScreen.dart';
 
 class areas extends StatefulWidget {
   @override
@@ -44,7 +47,8 @@ class _areasState extends State<areas> {
               child: Column(
                 children: [
                   ListTile(
-                    title: Text(Area.getAreas()),
+                    title: Text(
+                        Restaurants.restaurants.elementAt(index).getArea()),
                   ),
                   TextField(
                     controller: area,
@@ -59,10 +63,14 @@ class _areasState extends State<areas> {
               child: Column(
                 children: [
                   ElevatedButton(
-                    child: Text('  DONE  ',style: TextStyle(color: Colors.lightGreenAccent.shade400),),
+                    child: Text(
+                      '  DONE  ',
+                      style: TextStyle(color: Colors.lightGreenAccent.shade400),
+                    ),
                     onPressed: () {
                       setState(() {
                         Area.add(area.text);
+                        print(Restaurants.restaurants.elementAt(index).getArea());
                         area.clear();
                         //Navigator.pop(context);
                       });
@@ -70,7 +78,10 @@ class _areasState extends State<areas> {
                   ),
                   Padding(padding: EdgeInsets.all(5)),
                   ElevatedButton(
-                    child: Text('DELETE',style: TextStyle(color: Colors.red.shade400),),
+                    child: Text(
+                      'DELETE',
+                      style: TextStyle(color: Colors.red.shade400),
+                    ),
                     onPressed: () {
                       setState(() {
                         Area.deleter();
