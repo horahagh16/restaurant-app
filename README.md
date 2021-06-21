@@ -1,16 +1,20 @@
+
 # restaurant_app
 
-A new Flutter application.
+A new Flutter application for Advanced Programming at SBU. Spring 1400.
 
-## Getting Started
+Main menu
+![Screenshot_1622635540](https://user-images.githubusercontent.com/79784901/120478789-75103400-c3c2-11eb-9401-9928f3b0f293.png)
 
-This project is a starting point for a Flutter application.
+Register menu
+![Screenshot_1622635590](https://user-images.githubusercontent.com/79784901/120479012-b56fb200-c3c2-11eb-9b3f-70a9da9a77f8.png)
 
-A few resources to get you started if this is your first Flutter project:
+Edit menu
+![Screenshot_1622635672](https://user-images.githubusercontent.com/79784901/120479181-e51eba00-c3c2-11eb-9f81-45d140adc059.png)
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Manage comments
+![Screenshot_1622635653](https://user-images.githubusercontent.com/79784901/120479298-07b0d300-c3c3-11eb-8cc9-309e1340e574.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Reports
+![Screenshot_1622635726](https://user-images.githubusercontent.com/79784901/120479361-1bf4d000-c3c3-11eb-86bd-a35b5bc20bf0.png)
+
