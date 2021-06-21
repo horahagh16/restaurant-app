@@ -40,7 +40,7 @@ class _mainPanelState extends State<mainPanel> {
                 leading: Icon(Icons.account_circle),
                 trailing: Icon(Icons.arrow_forward_ios),
                 title: Text('Profile'),
-                //onTap: ,
+
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -92,7 +92,7 @@ class _mainPanelState extends State<mainPanel> {
                         ],
                       ),
                     ),
-                    color: Color(0xfffffdaf),
+                    color: Color(0xfff5f5f5),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -188,7 +188,7 @@ class _mainPanelState extends State<mainPanel> {
                         ],
                       ),
                     ),
-                    color: Color(0xfffffdaf),
+                    color: Color(0xfff5f5f5),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -220,7 +220,7 @@ class _mainPanelState extends State<mainPanel> {
                         ],
                       ),
                     ),
-                    color: Color(0xfffffdaf),
+                    color: Color(0xfff5f5f5),
                   ),
                 ].toList(),
               ),

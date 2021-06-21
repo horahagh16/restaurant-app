@@ -1,13 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
+import 'package:restaurant_app/modals/constant.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'Home.dart';
 import 'mainPanel.dart';
-
+int index;
 class PopupDialog extends StatefulWidget {
-  const PopupDialog({Key key}) : super(key: key);
-
   @override
   _PopupDialogState createState() => _PopupDialogState();
 }
@@ -15,10 +16,12 @@ class PopupDialog extends StatefulWidget {
 class _PopupDialogState extends State<PopupDialog> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+   //static int index;
+
   bool is_alreadyused(String number, List<Restaurant> list) {
     bool status = false;
-    if (list.contains(number)) {
-      status = true;
+    for (Restaurant res in list) {
+      if (res.phoneNumber.contains(number)) status = true;
     }
     return status;
   }
@@ -32,10 +35,14 @@ class _PopupDialogState extends State<PopupDialog> {
       return null;
   }
 
-  bool is_passCorrect(int number, String pass, List<Restaurant> list) {
+  bool is_passCorrect(String number, String pass, List<Restaurant> list) {
     bool status = false;
-    if (list.contains(number) && list.contains(pass)) {
+    /*if (list.contains(number) && list.contains(pass)) {
       status = true;
+    }*/
+    for (Restaurant res in list) {
+      if (res.phoneNumber.contains(number) && res.password.contains(pass))
+        status = true;
     }
     return status;
   }
@@ -58,6 +65,7 @@ class _PopupDialogState extends State<PopupDialog> {
   TextEditingController phoneNumber;
   TextEditingController restaurantName;
   TextEditingController address;
+
   bool s1 = false;
   bool s2 = false;
   bool s3 = false;
@@ -265,12 +273,11 @@ class _PopupDialogState extends State<PopupDialog> {
             ),
             TextFormField(
               controller: phoneNumber,
-              key: _formKey,
               validator: (String value) {
                 if (is_alreadyused(phoneNumber.text, Restaurants.restaurants)) {
-                  'this number was taken';
+                  return 'this number was taken';
                 }
-                //return null;
+                return null;
               },
               decoration: InputDecoration(
                 icon: Icon(
@@ -279,9 +286,10 @@ class _PopupDialogState extends State<PopupDialog> {
                       phoneNumber.text.length != 11 ? Colors.red : Colors.grey,
                 ),
                 labelText: 'Phone Number',
-                errorText: phoneNumber.text.length != 11
-                    ? 'this number is not valid'
-                    : null,
+                errorText: /*phoneNumber.text.length != 11 &&*/
+                    is_alreadyused(phoneNumber.text, Restaurants.restaurants)
+                        ? 'this number is not valid or it was taken'
+                        : null,
                 //regExp.hasMatch(phoneNumber.toString())?
               ),
             ),
@@ -327,19 +335,27 @@ class _PopupDialogState extends State<PopupDialog> {
                     phoneNumber != null &&
                     pass != null &&
                     address != null &&
-                    phoneNumber.text.length == 11) {
+                    phoneNumber.text.length == 11 &&
+                    !is_alreadyused(
+                        phoneNumber.text, Restaurants.restaurants)) {
                   setState(() {
                     Restaurants.add(Restaurant(restaurantName.text,
                         address.text, kind, phoneNumber.text, pass.text));
-                    /*restaurantName.clear();
+                    index = Restaurants.restaurants.length - 1;
+                    restaurantName.clear();
                     phoneNumber.clear();
                     address.clear();
-                    pass.clear();*/
+                    pass.clear();
+                    kind.clear();
                   });
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => home()),
                   );
+                } else {
+                  if (Navigator.canPop(context)) {
+                    _onAlertWithCustomContentPressed(context);
+                  }
                 }
               }),
           DialogButton(
@@ -366,10 +382,10 @@ class _PopupDialogState extends State<PopupDialog> {
               controller: phoneNumber,
               decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  errorText:
-                      !is_alreadyused(phoneNumber.text, Restaurants.restaurants)
-                          ? 'this number not exist'
-                          : null,
+                  errorText: !is_alreadyused(
+                          phoneNumber.text, Restaurants.getRestaurants())
+                      ? 'this number not exist'
+                      : null,
                   icon: Icon(
                     Icons.phone,
                     color: Colors.grey,
@@ -377,24 +393,27 @@ class _PopupDialogState extends State<PopupDialog> {
               onSaved: (String value) {
                 phone_number = int.parse(value);
               },
-              validator: (String value) {
+              /*validator: (String value) {
                 if (int.parse(value) is int == false) {
                   return "please enter numbers";
                 }
-                if (is_alreadyused(phoneNumber.text, Restaurants.restaurants)) {
+                if (is_alreadyused(phoneNumber.text, Restaurants.getRestaurants())) {
                   return "this number not exist";
                 }
                 if (phone_number.toString().length != 11) {
                   return "please enter 11 numbers";
                 }
                 return null;
-              },
+              },*/
             ),
             TextField(
               controller: pass,
               decoration: InputDecoration(
                   labelText: 'Password',
-                  errorText: validatePassword(pass.text),
+                  errorText: is_passCorrect(phoneNumber.text, pass.text,
+                          Restaurants.getRestaurants())
+                      ? null
+                      : "incorrect",
                   suffixIcon: IconButton(
                     icon: Icon(
                         _obscureText ? Icons.visibility : Icons.visibility_off),
@@ -422,10 +441,20 @@ class _PopupDialogState extends State<PopupDialog> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => home()),
-              );
+              print(is_passCorrect(
+                  phoneNumber.text, pass.text, Restaurants.getRestaurants()));
+              if (is_passCorrect(
+                  phoneNumber.text, pass.text, Restaurants.getRestaurants())) {
+                for (Restaurant res in Restaurants.restaurants) {
+                  if (res.phoneNumber.startsWith(phoneNumber.text)) {
+                    index = Restaurants.restaurants.indexOf(res);
+                  }
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => home()),
+                );
+              }
             },
             gradient: LinearGradient(colors: [
               Color(0xff00FF00),
@@ -445,4 +474,24 @@ class _PopupDialogState extends State<PopupDialog> {
           )
         ]).show();
   }
+
+/*  void send() async {
+  //  if (phoneNumber.text.isNotEmpty && pass.text.isNotEmpty) {
+      await Socket.connect('192.168.1.246', 1381)
+          .then((serverSocket) {
+        print('connected');
+        serverSocket.write('login');
+        serverSocket.write(phoneNumber.text);
+        serverSocket.write(pass.text);
+        serverSocket.listen((socket) {
+            show = String.fromCharCodes(socket).trim();
+            print(show);
+            setState(() {
+
+            });
+
+        });
+      });
+    //}
+  }*/
 }

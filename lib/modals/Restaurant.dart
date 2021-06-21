@@ -1,19 +1,27 @@
+import 'package:restaurant_app/modals/comment.dart';
+
 import 'FoodCategory.dart';
+import 'package:restaurant_app/modals/supportArea.dart';
 
 class Restaurant {
   String name;
   String address;
-  List kind;
-  String phone_number;
+  List kind = List.empty(growable: true);
+  String phoneNumber;
   String password;
-  List<String> comment=List.empty(growable: true);
+  List<Comment> comment = [Comment("thanks"),Comment("hi")];
+  //List.empty(growable: true);
+  double star = 0;
+  int sta = 0;
+  int count = 0;
+  String supportArea;
 
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {
     this.name = name;
     this.address;
     this.kind = kind;
-    this.phone_number = phone_number;
+    this.phoneNumber = phone_number;
     this.password = password;
   }
 
@@ -30,13 +38,28 @@ class Restaurant {
   }
 
   String getPhoneNumber() {
-    return phone_number;
+    return phoneNumber;
   }
 
   String getPassword() {
     return password;
   }
-  String getcomment(int index){
+
+  Comment getComment(int index) {
     return comment.elementAt(index);
+  }
+
+  String getArea() {
+    return Area.getAreas();
+  }
+
+  void setArea() {
+    this.supportArea = Area.getAreas();
+  }
+
+  void stars(int star) {
+    count++;
+    sta += star;
+    this.star = sta / count;
   }
 }
