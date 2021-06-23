@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
+<<<<<<< HEAD
+=======
+import 'package:restaurant_app/modals/Restaurant.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
+>>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
 import 'package:restaurant_app/screens/loginScreen.dart';
 
+import 'orders.dart';
 class report extends StatefulWidget {
   @override
   _reportState createState() => _reportState();
@@ -128,6 +134,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
+<<<<<<< HEAD
             backgroundColor: Color(0xfff5f5f5),
             canTapOnHeader: true,
             headerBuilder: (BuildContext context, bool isExpanded)
@@ -193,6 +200,47 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         .
         isExpanded
         ,
+=======
+          backgroundColor: Color(0xfffffdaf),
+          canTapOnHeader: true,
+          headerBuilder: (BuildContext context, bool isExpanded) {
+            return ListTile(
+              title: Text(item.headerValue),
+            );
+          },
+          body: ListTile(
+            title: Text(item.expandedValue),
+            subtitle: Column(
+              children: [
+                Text('\n'),
+                Text("code: " + OrderDetails().code.toString() + "\n"),
+                Text("Price: " + OrderDetails().price.toString() + " T\n"),
+                Text(OrderDetails().date.toString()),
+                Row(
+                  children: [
+                    Text("Sent"),
+                    Switch(
+                      value: Sent.sent,
+                      onChanged: (value) {
+                        setState(() {
+                          Sent.convert();
+                          if(Sent.sent==true)
+                            {
+                              Restaurants.restaurants.elementAt(index).increase_SoldAmount(OrderDetails().price);
+                              Restaurants.restaurants.elementAt(index).increase_SoldNumber();
+                            }
+                        });
+                      },
+                      activeTrackColor: Colors.lightGreenAccent[100],
+                      activeColor: Colors.green,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          isExpanded: item.isExpanded,
+>>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
         );
       }).toList(),
     );
@@ -255,12 +303,12 @@ class MyStatelessWidget extends StatelessWidget {
       headingRowColor: MaterialStateColor.resolveWith(
             (states) => Color(0xff7f1019),
       ),
-      rows: const <DataRow>[
+      rows:  <DataRow>[
         DataRow(
           cells: <DataCell>[
             DataCell(Text('To Day Sales')),
-            DataCell(Text('4')),
-            DataCell(Text('600000')),
+            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldNumber().toString())),
+            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldAmount().toString())),
           ],
         ),
       ],
@@ -269,7 +317,7 @@ class MyStatelessWidget extends StatelessWidget {
 }
 
 class MyStatelessWidget2 extends StatelessWidget {
-  const MyStatelessWidget2({Key key}) : super(key: key);
+   MyStatelessWidget2({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +325,7 @@ class MyStatelessWidget2 extends StatelessWidget {
       headingRowColor: MaterialStateColor.resolveWith(
             (states) => Color(0xff7f1019),
       ),
-      columns: const <DataColumn>[
+      columns:  <DataColumn>[
         DataColumn(
           label: Text(
             'Report of',
@@ -297,12 +345,12 @@ class MyStatelessWidget2 extends StatelessWidget {
           ),
         ),
       ],
-      rows: const <DataRow>[
+      rows:  <DataRow>[
         DataRow(
           cells: <DataCell>[
             DataCell(Text('Total Sales')),
-            DataCell(Text('22')),
-            DataCell(Text('22000000')),
+            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldNumber().toString())),
+            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldAmount().toString())),
           ],
         ),
       ],

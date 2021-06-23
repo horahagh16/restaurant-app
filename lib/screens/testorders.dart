@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
-<<<<<<< HEAD
 
 import 'loginScreen.dart';
 
 int count;
 
-=======
-import 'package:restaurant_app/modals/Restaurant.dart';
-import 'package:restaurant_app/modals/Restaurants.dart';
-import 'package:restaurant_app/screens/loginScreen.dart';
->>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
 class orders extends StatefulWidget {
   @override
   _ordersState createState() => _ordersState();
@@ -28,27 +22,32 @@ class _ordersState extends State<orders> {
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
                   colors: <Color>[
-                Color(0xff7f1019),
-                Color(0xffe62928),
-              ])),
+                    Color(0xff7f1019),
+                    Color(0xffe62928),
+                  ])),
         ),
         title: Text('Orders'),
       ),
-      body: MyStatefulWidget(),
+      body: ListView.builder(
+          itemCount:
+          Restaurants.getRestaurants().elementAt(index).orders.length,
+          itemBuilder: (context, int ind) {
+            return GestureDetector(child: MyStatefulWidget());
+          }),
     ); //
   }
 }
 
 class Item {
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
+
   Item({
     this.expandedValue,
     this.headerValue,
     this.isExpanded = false,
   });
-
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
 }
 
 List<Item> generateItems(int numberOfItems) {
@@ -58,43 +57,49 @@ List<Item> generateItems(int numberOfItems) {
           .elementAt(index)
           .orders
           .elementAt(ind)
-          .getName(),
+          .name,
       expandedValue: Restaurants.getRestaurants()
           .elementAt(index)
           .orders
           .elementAt(ind)
-          .getItem(),
+          .item,
     );
   });
 }
 
 class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final List<Item> _data = generateItems(
+  List<Item> _data = generateItems(
       Restaurants.getRestaurants().elementAt(index).orders.length);
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        child: _buildPanel(),
+        child: buildPanel(),
       ),
     );
   }
 
-  Widget _buildPanel() {
+  Widget buildPanel() {
     return ExpansionPanelList(
+      dividerColor: Color(0xff7f1019),
+      expandedHeaderPadding: EdgeInsets.all(3),
       expansionCallback: (int ind, bool isExpanded) {
         setState(() {
+          count=ind;
           _data[ind].isExpanded = !isExpanded;
         });
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
+          backgroundColor: Color(0xfffffdaf),
           canTapOnHeader: true,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
@@ -113,14 +118,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       value: Restaurants.getRestaurants()
                           .elementAt(index)
                           .orders
-                          .elementAt(_data.indexOf(item))
+                          .elementAt(count)
                           .sent,
                       onChanged: (value) {
                         setState(() {
                           Restaurants.getRestaurants()
                               .elementAt(index)
                               .orders
-                              .elementAt(_data.indexOf(item))
+                              .elementAt(count)
                               .isSent();
                         });
                       },

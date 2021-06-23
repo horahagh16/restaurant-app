@@ -22,9 +22,14 @@ class Restaurant {
   int sta = 0;
   int count = 0;
   String supportArea;
+<<<<<<< HEAD
   static int all;
   static int today;
 
+=======
+  int sold_number=0;
+  double sold_sum=0;
+>>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {
     this.name = name;
@@ -70,5 +75,17 @@ class Restaurant {
     count++;
     sta += star;
     this.star = sta / count;
+  }
+  void increase_SoldAmount(double price1){
+    this.sold_sum+=price1;
+  }
+  void increase_SoldNumber(){
+    this.sold_number+=1;
+  }
+  double getSoldAmount(){
+    return sold_sum;
+  }
+  int getSoldNumber(){
+    return sold_number;
   }
 }
