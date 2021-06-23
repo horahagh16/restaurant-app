@@ -35,22 +35,22 @@ class _reportState extends State<report> {
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
                   colors: <Color>[
-                Color(0xff7f1019),
-                Color(0xffe62928),
-              ])),
+                    Color(0xff7f1019),
+                    Color(0xffe62928),
+                  ])),
         ),
         title: Text('Reports'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.assessment),
-            label: 'sale statistics',
+            icon: Icon(Icons.assignment),
+            label: 'orders list',
             backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: 'orders list',
+            icon: Icon(Icons.assessment),
+            label: 'sale statistics',
             backgroundColor: Colors.green,
           ),
         ],
@@ -62,45 +62,33 @@ class _reportState extends State<report> {
   }
 }
 
-class Sent {
-  static int ind;
-  static bool sent =
-      Restaurants.getRestaurants().elementAt(index).orders.elementAt(ind).sent;
-
-  static void convert() {
-    sent = !sent;
-    Restaurants.getRestaurants().elementAt(index).orders.elementAt(ind).sent =
-        sent;
-  }
-}
-
 class Item {
-  String expandedValue;
-  String headerValue;
-  bool isExpanded;
-
   Item({
     this.expandedValue,
     this.headerValue,
     this.isExpanded = false,
   });
+
+  String expandedValue;
+  String headerValue;
+  bool isExpanded;
 }
 
 List<Item> generateItems(int numberOfItems) {
   return List<Item>.generate(numberOfItems, (int ind) {
-    Sent.ind = ind;
-    ind++;
     return Item(
-      headerValue: Restaurants.getRestaurants()
+      headerValue: Restaurants
+          .getRestaurants()
           .elementAt(index)
           .orders
           .elementAt(ind)
-          .name,
-      expandedValue: Restaurants.getRestaurants()
+          .getName(),
+      expandedValue: Restaurants
+          .getRestaurants()
           .elementAt(index)
           .orders
           .elementAt(ind)
-          .item,
+          .getItem(),
     );
   });
 }
@@ -113,7 +101,12 @@ class MyStatefulWidget extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  final List<Item> _data = generateItems(1);
+  List<Item> _data = generateItems(
+      Restaurants
+          .getRestaurants()
+          .elementAt(index)
+          .orders
+          .length);
 
   @override
   Widget build(BuildContext context) {
@@ -135,59 +128,71 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
-          backgroundColor: Color(0xfffffdaf),
-          canTapOnHeader: true,
-          headerBuilder: (BuildContext context, bool isExpanded) {
-            return ListTile(
-              title: Text(item.headerValue),
-            );
-          },
-          body: ListTile(
-            title: Text(item.expandedValue),
-            subtitle: Column(
-              children: [
-                Text('\n'),
-                Text("code: " +
-                    Restaurants.getRestaurants()
-                        .elementAt(index)
-                        .orders
-                        .elementAt(Sent.ind)
-                        .code
-                        .toString() +
-                    "\n"),
-                Text("Price: " +
-                    Restaurants.getRestaurants()
-                        .elementAt(index)
-                        .orders
-                        .elementAt(Sent.ind)
-                        .price
-                        .toString() +
-                    " T\n"),
-                Text(Restaurants.getRestaurants()
-                    .elementAt(index)
-                    .orders
-                    .elementAt(Sent.ind)
-                    .date
-                    .toString()),
-                Row(
-                  children: [
-                    Text("Sent"),
-                    Switch(
-                      value: Sent.sent,
-                      onChanged: (value) {
-                        setState(() {
-                          Sent.convert();
-                        });
-                      },
-                      activeTrackColor: Colors.lightGreenAccent[100],
-                      activeColor: Colors.green,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          isExpanded: item.isExpanded,
+            backgroundColor: Color(0xfff5f5f5),
+            canTapOnHeader: true,
+            headerBuilder: (BuildContext context, bool isExpanded)
+        {
+          return ListTile(
+            title: Text(item.headerValue),
+          );
+        },
+        body: ListTile(
+        title: Text(item.expandedValue),
+        subtitle: Column(
+        children: [
+        Text('\n'),
+        Text("code: " +
+        Restaurants.getRestaurants()
+            .elementAt(index)
+            .orders
+            .elementAt(_data.indexOf(item))
+            .code
+            .toString() +
+        "\n"),
+        Text("Price: " +
+        Restaurants.getRestaurants()
+            .elementAt(index)
+            .orders
+            .elementAt(_data.indexOf(item))
+            .price
+            .toString() +
+        " T\n"),
+        Text(Restaurants.getRestaurants()
+            .elementAt(index)
+            .orders
+            .elementAt(_data.indexOf(item))
+            .date
+            .toString()),
+        Row(
+        children: [
+        Text("Sent"),
+        Switch(
+        value: Restaurants.getRestaurants()
+            .elementAt(index)
+            .orders
+            .elementAt(_data.indexOf(item))
+            .sent,
+        onChanged: (value) {
+        setState(() {
+        Restaurants.getRestaurants()
+            .elementAt(index)
+            .orders
+            .elementAt(_data.indexOf(item))
+            .isSent();
+        });
+        },
+        activeTrackColor: Colors.lightGreenAccent[100],
+        activeColor: Colors.green,
+        ),
+        ],
+        ),
+        ],
+        ),
+        ),
+        isExpanded: item
+        .
+        isExpanded
+        ,
         );
       }).toList(),
     );
@@ -248,7 +253,7 @@ class MyStatelessWidget extends StatelessWidget {
         ),
       ],
       headingRowColor: MaterialStateColor.resolveWith(
-        (states) => Color(0xff7f1019),
+            (states) => Color(0xff7f1019),
       ),
       rows: const <DataRow>[
         DataRow(
@@ -270,7 +275,7 @@ class MyStatelessWidget2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return DataTable(
       headingRowColor: MaterialStateColor.resolveWith(
-        (states) => Color(0xff7f1019),
+            (states) => Color(0xff7f1019),
       ),
       columns: const <DataColumn>[
         DataColumn(
