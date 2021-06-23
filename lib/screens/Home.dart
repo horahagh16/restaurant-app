@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
 import 'loginScreen.dart';
 import 'mainPanel.dart';
 
@@ -27,7 +28,7 @@ class _homeState extends State<home> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
+          children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -39,7 +40,7 @@ class _homeState extends State<home> {
                   ])),
               child: Center(
                   child: Text(
-                'RESTAURANT APP',
+                Restaurants.restaurants.elementAt(index).name,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -47,14 +48,15 @@ class _homeState extends State<home> {
               )),
             ),
             ListTile(
-              leading: Icon(Icons.account_circle),
-              trailing: Icon(Icons.arrow_forward_ios),
-              title: Text('Profile'),
-            ),
-            ListTile(
               leading: Icon(Icons.exit_to_app),
               trailing: Icon(Icons.arrow_forward_ios),
               title: Text('Exit'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PopupDialog()),
+                );
+              },
             ),
           ],
         ),

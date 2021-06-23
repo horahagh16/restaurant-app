@@ -1,4 +1,5 @@
 import 'package:restaurant_app/modals/comment.dart';
+import 'package:restaurant_app/screens/OrderList.dart';
 
 import 'FoodCategory.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
@@ -9,12 +10,20 @@ class Restaurant {
   List kind = List.empty(growable: true);
   String phoneNumber;
   String password;
-  List<Comment> comment = [Comment("thanks"),Comment("hi")];
+  List<Comment> comment = [Comment("thanks"), Comment("hi")];
+  List<OrderDetails> orders = [
+    OrderDetails("salad", 40000, DateTime.now(), 1234, "name1", false),
+    OrderDetails("salad", 40000, DateTime.now(), 1237, "name5", false),
+    OrderDetails("sandwich", 70000, DateTime.now(), 1222, "name2", false)
+  ];
+
   //List.empty(growable: true);
   double star = 0;
   int sta = 0;
   int count = 0;
   String supportArea;
+  static int all;
+  static int today;
 
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {

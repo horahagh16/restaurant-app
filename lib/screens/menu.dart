@@ -341,19 +341,13 @@ class _menuState extends State<menu> {
                       ),
                       Padding(padding: EdgeInsets.all(5)),
                       ActionChip(
-                        label: Text('pizza'),
+                        label: Text('main course'),
                         onPressed: () {},
                         shadowColor: Colors.greenAccent,
                       ),
                       Padding(padding: EdgeInsets.all(5)),
                       ActionChip(
-                        label: Text('sandwich'),
-                        onPressed: () {},
-                        shadowColor: Colors.greenAccent,
-                      ),
-                      Padding(padding: EdgeInsets.all(5)),
-                      ActionChip(
-                        label: Text('soup'),
+                        label: Text('Conflicts'),
                         onPressed: () {},
                         shadowColor: Colors.greenAccent,
                       ),

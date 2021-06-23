@@ -6,16 +6,18 @@ class OrderDetails {
   String name;
   bool sent = false;
 
-  OrderDetails() {
-    item = 'Pizza, Soda, Salad';
-    date = DateTime.now();
-    code = 992430;
-    price = 122000;
-    name = "miss Smith";
+  OrderDetails(String item, double price, DateTime date, int code, String name,
+      bool sent) {
+    this.item = item;
+    this.date = date;
+    this.code = code;
+    this.price = price;
+    this.name = name;
+    this.sent = sent;
   }
 
-  void setSent(bool issent) {
-    sent = issent;
+  void isSent() {
+    sent = !sent;
   }
 
   String getItem() {

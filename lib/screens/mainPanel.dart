@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/areas.dart';
+import 'package:restaurant_app/screens/loginScreen.dart';
 import 'package:restaurant_app/screens/reports.dart';
 import 'comments.dart';
 import 'menu.dart';
@@ -17,7 +19,7 @@ class _mainPanelState extends State<mainPanel> {
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
-            children: const <Widget>[
+            children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -29,18 +31,12 @@ class _mainPanelState extends State<mainPanel> {
                     ])),
                 child: Center(
                     child: Text(
-                  'RESTAURANT APP',
+                      Restaurants.restaurants.elementAt(index).name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                   ),
                 )),
-              ),
-              ListTile(
-                leading: Icon(Icons.account_circle),
-                trailing: Icon(Icons.arrow_forward_ios),
-                title: Text('Profile'),
-
               ),
               ListTile(
                 leading: Icon(Icons.exit_to_app),
@@ -124,7 +120,7 @@ class _mainPanelState extends State<mainPanel> {
                         ],
                       ),
                     ),
-                    color: Color(0xfffffee0),
+                    color: Color(0xfff5f5f5),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),
@@ -156,7 +152,8 @@ class _mainPanelState extends State<mainPanel> {
                         ],
                       ),
                     ),
-                    color: Color(0xfffffee0),
+                    //color: Color(0xfffffee0),
+                    color: Color(0xfff5f5f5),
                   ),
                   Container(
                     padding: const EdgeInsets.all(8),

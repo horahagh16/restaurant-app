@@ -7,7 +7,9 @@ import 'package:restaurant_app/modals/constant.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'Home.dart';
 import 'mainPanel.dart';
+
 int index;
+
 class PopupDialog extends StatefulWidget {
   @override
   _PopupDialogState createState() => _PopupDialogState();
@@ -15,8 +17,6 @@ class PopupDialog extends StatefulWidget {
 
 class _PopupDialogState extends State<PopupDialog> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-   //static int index;
 
   bool is_alreadyused(String number, List<Restaurant> list) {
     bool status = false;
@@ -332,6 +332,7 @@ class _PopupDialogState extends State<PopupDialog> {
               ),
               onPressed: () {
                 if (validatePassword(pass.text) == null &&
+                    restaurantName != null &&
                     phoneNumber != null &&
                     pass != null &&
                     address != null &&
@@ -393,18 +394,6 @@ class _PopupDialogState extends State<PopupDialog> {
               onSaved: (String value) {
                 phone_number = int.parse(value);
               },
-              /*validator: (String value) {
-                if (int.parse(value) is int == false) {
-                  return "please enter numbers";
-                }
-                if (is_alreadyused(phoneNumber.text, Restaurants.getRestaurants())) {
-                  return "this number not exist";
-                }
-                if (phone_number.toString().length != 11) {
-                  return "please enter 11 numbers";
-                }
-                return null;
-              },*/
             ),
             TextField(
               controller: pass,
@@ -441,19 +430,27 @@ class _PopupDialogState extends State<PopupDialog> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             onPressed: () {
-              print(is_passCorrect(
-                  phoneNumber.text, pass.text, Restaurants.getRestaurants()));
-              if (is_passCorrect(
-                  phoneNumber.text, pass.text, Restaurants.getRestaurants())) {
+              print(is_passCorrect(phoneNumber.text, pass.text,
+                      Restaurants.getRestaurants()) &&
+                  phoneNumber.text != "");
+              print(phoneNumber.text + " " + pass.text);
+              if (is_passCorrect(phoneNumber.text, pass.text,
+                      Restaurants.getRestaurants()) &&
+                  phoneNumber.text != "") {
                 for (Restaurant res in Restaurants.restaurants) {
                   if (res.phoneNumber.startsWith(phoneNumber.text)) {
                     index = Restaurants.restaurants.indexOf(res);
+                    print(Restaurants.restaurants.elementAt(index).orders);
                   }
                 }
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => home()),
                 );
+              } else {
+                if (Navigator.canPop(context)) {
+                  _onAlertWithCustomContentPressed2(context);
+                }
               }
             },
             gradient: LinearGradient(colors: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
+import 'package:restaurant_app/screens/loginScreen.dart';
 
 class report extends StatefulWidget {
   @override
@@ -61,11 +63,14 @@ class _reportState extends State<report> {
 }
 
 class Sent {
-  static bool sent = OrderDetails().sent;
+  static int ind;
+  static bool sent =
+      Restaurants.getRestaurants().elementAt(index).orders.elementAt(ind).sent;
 
   static void convert() {
     sent = !sent;
-    OrderDetails().sent = sent;
+    Restaurants.getRestaurants().elementAt(index).orders.elementAt(ind).sent =
+        sent;
   }
 }
 
@@ -82,11 +87,20 @@ class Item {
 }
 
 List<Item> generateItems(int numberOfItems) {
-  return List<Item>.generate(numberOfItems, (int index) {
-    index++;
+  return List<Item>.generate(numberOfItems, (int ind) {
+    Sent.ind = ind;
+    ind++;
     return Item(
-      headerValue: OrderDetails().name,
-      expandedValue: OrderDetails().item,
+      headerValue: Restaurants.getRestaurants()
+          .elementAt(index)
+          .orders
+          .elementAt(ind)
+          .name,
+      expandedValue: Restaurants.getRestaurants()
+          .elementAt(index)
+          .orders
+          .elementAt(ind)
+          .item,
     );
   });
 }
@@ -114,9 +128,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     return ExpansionPanelList(
       dividerColor: Color(0xff7f1019),
       expandedHeaderPadding: EdgeInsets.all(3),
-      expansionCallback: (int index, bool isExpanded) {
+      expansionCallback: (int ind, bool isExpanded) {
         setState(() {
-          _data[index].isExpanded = !isExpanded;
+          _data[ind].isExpanded = !isExpanded;
         });
       },
       children: _data.map<ExpansionPanel>((Item item) {
@@ -133,9 +147,28 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             subtitle: Column(
               children: [
                 Text('\n'),
-                Text("code: " + OrderDetails().code.toString() + "\n"),
-                Text("Price: " + OrderDetails().price.toString() + " T\n"),
-                Text(OrderDetails().date.toString()),
+                Text("code: " +
+                    Restaurants.getRestaurants()
+                        .elementAt(index)
+                        .orders
+                        .elementAt(Sent.ind)
+                        .code
+                        .toString() +
+                    "\n"),
+                Text("Price: " +
+                    Restaurants.getRestaurants()
+                        .elementAt(index)
+                        .orders
+                        .elementAt(Sent.ind)
+                        .price
+                        .toString() +
+                    " T\n"),
+                Text(Restaurants.getRestaurants()
+                    .elementAt(index)
+                    .orders
+                    .elementAt(Sent.ind)
+                    .date
+                    .toString()),
                 Row(
                   children: [
                     Text("Sent"),
