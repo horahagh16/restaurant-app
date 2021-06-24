@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
+import 'package:restaurant_app/modals/resMenu.dart';
 import 'package:restaurant_app/screens/areas.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 import 'package:restaurant_app/screens/reports.dart';
 import 'comments.dart';
-import 'menu.dart';
 import 'orders.dart';
 
 class mainPanel extends StatefulWidget {
@@ -31,7 +31,7 @@ class _mainPanelState extends State<mainPanel> {
                     ])),
                 child: Center(
                     child: Text(
-                      Restaurants.restaurants.elementAt(index).name,
+                  Restaurants.restaurants.elementAt(index).name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
@@ -108,7 +108,7 @@ class _mainPanelState extends State<mainPanel> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => menu()));
+                                      builder: (context) => MenuEdit()));
                             },
                           ),
                           Column(

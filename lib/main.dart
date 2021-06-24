@@ -4,15 +4,20 @@ import 'dart:io';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
+import 'package:restaurant_app/modals/Food.dart';
 
 void main() {
   Restaurants.add(
-      Restaurant("farsi", 'dolat', ["iranian"], "09123456788", "abc1234"));
+      Restaurant("farsi", 'dolat', ["iranian"], "09123456789", "abc1234"));
+  Restaurants.restaurants.elementAt(0).menu.add(Food("kabab","kobide",200000,"main course"));
   Restaurants.add(Restaurant(
       "perperook", 'pasdaran', ["fastfood"], "09121234567", "def1234"));
   Restaurants.add(
       Restaurant("nayeb", 'niavaran', ["iranian"], "09121231212", "ghi1234"));
- // send();
+
+  Restaurants.restaurants.elementAt(1).menu.add(Food("french fries","mini size",10000,"dessert"));
+  Restaurants.restaurants.elementAt(2).menu.add(Food("mashroom soup","kobide",200000,"appetiezer"));
+  // send();
   runApp(MyApp());
 }
 

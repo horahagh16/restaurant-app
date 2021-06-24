@@ -1,6 +1,7 @@
 import 'package:restaurant_app/modals/comment.dart';
 import 'package:restaurant_app/modals/resMenu.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
+import 'Food.dart';
 import 'FoodCategory.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
 
@@ -18,7 +19,8 @@ class Restaurant {
     OrderDetails("salad", 40000, DateTime.now(), 1237, "name5", false),
     OrderDetails("sandwich", 70000, DateTime.now(), 1222, "name2", false)
   ];*/
-  List<Food> menu = List.empty(growable: true);
+  List<Food> menu =[Food("food", "beef", 20000, "all")] ;
+  // List.empty(growable: true);
 
   double star = 0;
   int sta = 0;
