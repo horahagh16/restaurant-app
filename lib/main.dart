@@ -4,13 +4,15 @@ import 'dart:io';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
+
 void main() {
   Restaurants.add(
-      Restaurant("farsi", 'dolat', ["iranian"], "09123456789", "abc1234"));
+      Restaurant("farsi", 'dolat', ["iranian"], "09123456788", "abc1234"));
   Restaurants.add(Restaurant(
       "perperook", 'pasdaran', ["fastfood"], "09121234567", "def1234"));
   Restaurants.add(
       Restaurant("nayeb", 'niavaran', ["iranian"], "09121231212", "ghi1234"));
+ // send();
   runApp(MyApp());
 }
 
@@ -24,4 +26,43 @@ class MyApp extends StatelessWidget {
       home: PopupDialog(),
     );
   }
+}
+
+void send() async {
+  await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
+    print('connected');
+    String str = "";
+    String address= "";
+    String name= "";
+    String phoneNumber= "";
+    String pass= "";
+    serverSocket.listen((socket) {
+      str = String.fromCharCodes(socket).trim();
+      print(str);
+      for (int i = 0; i < str.length;) {
+        while (str[i] != ' ') {
+          name += str[i];
+          i++;
+        }
+        while (str[i] != ' ') {
+          address += str[i];
+          i++;
+        }
+        while (str[i] != ' ') {
+          phoneNumber += str[i];
+          i++;
+        }
+        while (str[i] != ' ') {
+          pass += str[i];
+          i++;
+        }
+      }
+      Restaurants.add(
+          Restaurant(name, address, ["iranian"], phoneNumber, pass));
+      /**/
+      print(Restaurants.restaurants.last.name);
+      //print(Restaurants.restaurants.last.address);
+    });
+    //Restaurants.add(restaurant());
+  });
 }

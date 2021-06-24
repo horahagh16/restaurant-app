@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
-<<<<<<< HEAD
 
 import 'loginScreen.dart';
 
 int count;
 
-=======
-import 'package:restaurant_app/modals/Restaurant.dart';
-import 'package:restaurant_app/modals/Restaurants.dart';
-import 'package:restaurant_app/screens/loginScreen.dart';
->>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
 class orders extends StatefulWidget {
   @override
   _ordersState createState() => _ordersState();

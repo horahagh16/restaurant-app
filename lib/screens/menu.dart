@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/modals/Restaurants.dart';
+import 'package:restaurant_app/modals/Restaurant.dart';
+import 'package:restaurant_app/screens/areas.dart';
+import 'package:restaurant_app/screens/loginScreen.dart';
 
 class menu extends StatefulWidget {
   @override
@@ -389,7 +393,6 @@ class _menuState extends State<menu> {
     );
   }
 }
-
 class Exist {
   static bool exist = true;
 

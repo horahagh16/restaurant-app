@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
-<<<<<<< HEAD
-=======
-import 'package:restaurant_app/modals/Restaurant.dart';
-import 'package:restaurant_app/modals/Restaurants.dart';
->>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
 import 'package:restaurant_app/screens/loginScreen.dart';
 
-import 'orders.dart';
 class report extends StatefulWidget {
   @override
   _reportState createState() => _reportState();
@@ -41,9 +35,9 @@ class _reportState extends State<report> {
                   begin: Alignment.topLeft,
                   end: Alignment.topRight,
                   colors: <Color>[
-                    Color(0xff7f1019),
-                    Color(0xffe62928),
-                  ])),
+                Color(0xff7f1019),
+                Color(0xffe62928),
+              ])),
         ),
         title: Text('Reports'),
       ),
@@ -83,14 +77,12 @@ class Item {
 List<Item> generateItems(int numberOfItems) {
   return List<Item>.generate(numberOfItems, (int ind) {
     return Item(
-      headerValue: Restaurants
-          .getRestaurants()
+      headerValue: Restaurants.getRestaurants()
           .elementAt(index)
           .orders
           .elementAt(ind)
           .getName(),
-      expandedValue: Restaurants
-          .getRestaurants()
+      expandedValue: Restaurants.getRestaurants()
           .elementAt(index)
           .orders
           .elementAt(ind)
@@ -108,11 +100,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<Item> _data = generateItems(
-      Restaurants
-          .getRestaurants()
-          .elementAt(index)
-          .orders
-          .length);
+      Restaurants.getRestaurants().elementAt(index).orders.length);
 
   @override
   Widget build(BuildContext context) {
@@ -134,74 +122,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       },
       children: _data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
-<<<<<<< HEAD
-            backgroundColor: Color(0xfff5f5f5),
-            canTapOnHeader: true,
-            headerBuilder: (BuildContext context, bool isExpanded)
-        {
-          return ListTile(
-            title: Text(item.headerValue),
-          );
-        },
-        body: ListTile(
-        title: Text(item.expandedValue),
-        subtitle: Column(
-        children: [
-        Text('\n'),
-        Text("code: " +
-        Restaurants.getRestaurants()
-            .elementAt(index)
-            .orders
-            .elementAt(_data.indexOf(item))
-            .code
-            .toString() +
-        "\n"),
-        Text("Price: " +
-        Restaurants.getRestaurants()
-            .elementAt(index)
-            .orders
-            .elementAt(_data.indexOf(item))
-            .price
-            .toString() +
-        " T\n"),
-        Text(Restaurants.getRestaurants()
-            .elementAt(index)
-            .orders
-            .elementAt(_data.indexOf(item))
-            .date
-            .toString()),
-        Row(
-        children: [
-        Text("Sent"),
-        Switch(
-        value: Restaurants.getRestaurants()
-            .elementAt(index)
-            .orders
-            .elementAt(_data.indexOf(item))
-            .sent,
-        onChanged: (value) {
-        setState(() {
-        Restaurants.getRestaurants()
-            .elementAt(index)
-            .orders
-            .elementAt(_data.indexOf(item))
-            .isSent();
-        });
-        },
-        activeTrackColor: Colors.lightGreenAccent[100],
-        activeColor: Colors.green,
-        ),
-        ],
-        ),
-        ],
-        ),
-        ),
-        isExpanded: item
-        .
-        isExpanded
-        ,
-=======
-          backgroundColor: Color(0xfffffdaf),
+          backgroundColor: Color(0xfff5f5f5),
           canTapOnHeader: true,
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
@@ -213,22 +134,62 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             subtitle: Column(
               children: [
                 Text('\n'),
-                Text("code: " + OrderDetails().code.toString() + "\n"),
-                Text("Price: " + OrderDetails().price.toString() + " T\n"),
-                Text(OrderDetails().date.toString()),
+                Text("code: " +
+                    Restaurants.getRestaurants()
+                        .elementAt(index)
+                        .orders
+                        .elementAt(_data.indexOf(item))
+                        .code
+                        .toString() +
+                    "\n"),
+                Text("Price: " +
+                    Restaurants.getRestaurants()
+                        .elementAt(index)
+                        .orders
+                        .elementAt(_data.indexOf(item))
+                        .price
+                        .toString() +
+                    " T\n"),
+                Text(Restaurants.getRestaurants()
+                    .elementAt(index)
+                    .orders
+                    .elementAt(_data.indexOf(item))
+                    .date
+                    .toString()),
                 Row(
                   children: [
                     Text("Sent"),
                     Switch(
-                      value: Sent.sent,
+                      value: Restaurants.getRestaurants()
+                          .elementAt(index)
+                          .orders
+                          .elementAt(_data.indexOf(item))
+                          .sent,
                       onChanged: (value) {
                         setState(() {
-                          Sent.convert();
-                          if(Sent.sent==true)
-                            {
-                              Restaurants.restaurants.elementAt(index).increase_SoldAmount(OrderDetails().price);
-                              Restaurants.restaurants.elementAt(index).increase_SoldNumber();
-                            }
+                          Restaurants.getRestaurants()
+                              .elementAt(index)
+                              .orders
+                              .elementAt(_data.indexOf(item))
+                              .isSent();
+                          if (Restaurants.getRestaurants()
+                                  .elementAt(index)
+                                  .orders
+                                  .elementAt(_data.indexOf(item))
+                                  .sent ==
+                              true) {
+                            Restaurants.restaurants
+                                .elementAt(index)
+                                .increase_SoldAmount(
+                                    Restaurants.getRestaurants()
+                                        .elementAt(index)
+                                        .orders
+                                        .elementAt(_data.indexOf(item))
+                                        .price);
+                            Restaurants.restaurants
+                                .elementAt(index)
+                                .increase_SoldNumber();
+                          }
                         });
                       },
                       activeTrackColor: Colors.lightGreenAccent[100],
@@ -240,7 +201,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
           ),
           isExpanded: item.isExpanded,
->>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
         );
       }).toList(),
     );
@@ -301,14 +261,20 @@ class MyStatelessWidget extends StatelessWidget {
         ),
       ],
       headingRowColor: MaterialStateColor.resolveWith(
-            (states) => Color(0xff7f1019),
+        (states) => Color(0xff7f1019),
       ),
-      rows:  <DataRow>[
+      rows: <DataRow>[
         DataRow(
           cells: <DataCell>[
             DataCell(Text('To Day Sales')),
-            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldNumber().toString())),
-            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldAmount().toString())),
+            DataCell(Text(Restaurants.restaurants
+                .elementAt(index)
+                .getSoldNumber()
+                .toString())),
+            DataCell(Text(Restaurants.restaurants
+                .elementAt(index)
+                .getSoldAmount()
+                .toString())),
           ],
         ),
       ],
@@ -317,15 +283,15 @@ class MyStatelessWidget extends StatelessWidget {
 }
 
 class MyStatelessWidget2 extends StatelessWidget {
-   MyStatelessWidget2({Key key}) : super(key: key);
+  const MyStatelessWidget2({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DataTable(
       headingRowColor: MaterialStateColor.resolveWith(
-            (states) => Color(0xff7f1019),
+        (states) => Color(0xff7f1019),
       ),
-      columns:  <DataColumn>[
+      columns: const <DataColumn>[
         DataColumn(
           label: Text(
             'Report of',
@@ -345,12 +311,18 @@ class MyStatelessWidget2 extends StatelessWidget {
           ),
         ),
       ],
-      rows:  <DataRow>[
+      rows: <DataRow>[
         DataRow(
           cells: <DataCell>[
             DataCell(Text('Total Sales')),
-            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldNumber().toString())),
-            DataCell(Text(Restaurants.restaurants.elementAt(index).getSoldAmount().toString())),
+            DataCell(Text(Restaurants.restaurants
+                .elementAt(index)
+                .getSoldNumber()
+                .toString())),
+            DataCell(Text(Restaurants.restaurants
+                .elementAt(index)
+                .getSoldAmount()
+                .toString())),
           ],
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:restaurant_app/modals/comment.dart';
+import 'package:restaurant_app/modals/resMenu.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
-
 import 'FoodCategory.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
 
@@ -11,29 +11,30 @@ class Restaurant {
   String phoneNumber;
   String password;
   List<Comment> comment = [Comment("thanks"), Comment("hi")];
-  List<OrderDetails> orders = [
+  List<OrderDetails> orders = List.empty(growable: true);
+
+  /*[
     OrderDetails("salad", 40000, DateTime.now(), 1234, "name1", false),
     OrderDetails("salad", 40000, DateTime.now(), 1237, "name5", false),
     OrderDetails("sandwich", 70000, DateTime.now(), 1222, "name2", false)
-  ];
+  ];*/
+  List<Food> menu = List.empty(growable: true);
 
-  //List.empty(growable: true);
   double star = 0;
   int sta = 0;
   int count = 0;
   String supportArea;
-<<<<<<< HEAD
+
   static int all;
   static int today;
 
-=======
-  int sold_number=0;
-  double sold_sum=0;
->>>>>>> cc696306ceb55d405f61eeb8be8aadf7bc5eeda2
+  int sold_number = 0;
+  double sold_sum = 0;
+
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {
     this.name = name;
-    this.address;
+    this.address=address;
     this.kind = kind;
     this.phoneNumber = phone_number;
     this.password = password;
@@ -76,16 +77,20 @@ class Restaurant {
     sta += star;
     this.star = sta / count;
   }
-  void increase_SoldAmount(double price1){
-    this.sold_sum+=price1;
+
+  void increase_SoldAmount(double price1) {
+    this.sold_sum += price1;
   }
-  void increase_SoldNumber(){
-    this.sold_number+=1;
+
+  void increase_SoldNumber() {
+    this.sold_number += 1;
   }
-  double getSoldAmount(){
+
+  double getSoldAmount() {
     return sold_sum;
   }
-  int getSoldNumber(){
+
+  int getSoldNumber() {
     return sold_number;
   }
 }
