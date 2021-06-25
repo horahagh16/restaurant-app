@@ -4,6 +4,8 @@ import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 import 'package:restaurant_app/modals/Food.dart';
 
+List<String> allNames = Restaurants.restaurants.elementAt(index).foodNames();
+
 class MenuEdit extends StatefulWidget {
   @override
   _MenuEditState createState() => _MenuEditState();
@@ -163,7 +165,7 @@ class _MenuEditState extends State<MenuEdit> {
               onPressed: () {
                 showSearch(
                   context: context,
-                  //delegate: CustomSearchDelegate(),
+                  delegate: CustomSearchDelegate(),
                 );
               })
         ],
@@ -298,7 +300,23 @@ class _MenuEditState extends State<MenuEdit> {
                                   onPressed: () {
                                     _editFood(context, ind);
                                   },
-                                )
+                                ),
+                                IconButton(
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Color(0xff7f1019),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        Restaurants.getRestaurants()
+                                            .elementAt(index)
+                                            .menu
+                                            .remove(Restaurants.getRestaurants()
+                                                .elementAt(index)
+                                                .menu
+                                                .elementAt(ind));
+                                      });
+                                    })
                               ],
                             )
                           ],
@@ -409,6 +427,82 @@ class _MenuEditState extends State<MenuEdit> {
               });
         },
       ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  var suggestion = Restaurants.restaurants.elementAt(index).foodNames();
+  List<String> searchResult = [];
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      ),
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    searchResult.clear();
+    searchResult =
+        allNames.where((element) => element.startsWith(query)).toList();
+    return Container(
+      margin: EdgeInsets.all(20),
+      child: ListView(
+          padding: EdgeInsets.only(top: 8, bottom: 8),
+          scrollDirection: Axis.vertical,
+          children: List.generate(suggestion.length, (index) {
+            var item = suggestion[index];
+            return Card(
+              color: Colors.white,
+              child: Container(padding: EdgeInsets.all(16), child: Text(item)),
+            );
+          })),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestionList = query.isEmpty
+        ? suggestion
+        : allNames.where((element) => element.startsWith(query)).toList();
+    return ListView.builder(
+      itemBuilder: (context, index) => ListTile(
+        onTap: () {
+          if (query.isEmpty) {
+            query = suggestion[index];
+          }
+        },
+        leading: Icon(query.isEmpty ? Icons.history : Icons.search),
+        title: RichText(
+            text: TextSpan(
+                text: suggestionList[index].substring(0, query.length),
+                style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                children: [
+              TextSpan(
+                text: suggestionList[index].substring(query.length),
+                style: TextStyle(color: Color(0xff727272)),
+              )
+            ])),
+      ),
+      itemCount: suggestionList.length,
     );
   }
 }

@@ -19,7 +19,8 @@ class Restaurant {
     OrderDetails("salad", 40000, DateTime.now(), 1237, "name5", false),
     OrderDetails("sandwich", 70000, DateTime.now(), 1222, "name2", false)
   ];*/
-  List<Food> menu =[Food("food", "beef", 20000, "all")] ;
+  List<Food> menu = [Food("food", "beef", 20000, "all")];
+
   // List.empty(growable: true);
 
   double star = 0;
@@ -36,10 +37,18 @@ class Restaurant {
   Restaurant(String name, String address, List kind, String phone_number,
       String password) {
     this.name = name;
-    this.address=address;
+    this.address = address;
     this.kind = kind;
     this.phoneNumber = phone_number;
     this.password = password;
+  }
+
+  List<String> foodNames() {
+    List<String> names = ['Foods'];
+    for (Food f in menu) {
+      names.add(f.name);
+    }
+    return names;
   }
 
   String getName() {
