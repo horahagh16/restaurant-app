@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
@@ -17,6 +20,40 @@ class _MenuEditState extends State<MenuEdit> {
   TextEditingController Foodname;
   TextEditingController category;
   TextEditingController temp1, temp2, temp3, temp4;
+  PickedFile imageFile;
+  final _picker = ImagePicker();
+
+  _openGallery(BuildContext context) async {
+    var picture = await _picker.getImage(
+        source: ImageSource.gallery, maxHeight: 100, maxWidth: 100);
+    this.setState(() {
+      imageFile = picture;
+    });
+    Navigator.of(context).pop();
+  }
+
+  Future<void> _showChoice(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Tap to open gallery"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  GestureDetector(
+                    child: Text("Gallery"),
+                    onTap: () {
+                      _openGallery(context);
+                    },
+                  ),
+                  Padding(padding: EdgeInsets.all(8)),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -86,24 +123,12 @@ class _MenuEditState extends State<MenuEdit> {
                           hintText: "category",
                         ),
                       ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Color(0xff7f1019),
-                          ),
-                          onPressed: () {
-                            //items.removeAt(this);
-                            Restaurants.getRestaurants()
-                                .elementAt(index)
-                                .menu
-                                .removeAt(index1);
-                          }),
                       RaisedButton(
                         color: Color(0xfffffdaf),
                         child: Text('Change picture'),
                         onPressed: () {
                           setState(() {
-                            //
+                            _showChoice(context);
                           });
                         },
                       ),
@@ -142,6 +167,19 @@ class _MenuEditState extends State<MenuEdit> {
                 ),
               ]))));
         });
+  }
+
+  Widget _tempPicture(BuildContext context) {
+    if (imageFile == null) {
+      return Image.asset(
+        "assets/images/back.png",
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.file(File(imageFile.path));
+    }
   }
 
   @override
@@ -226,12 +264,7 @@ class _MenuEditState extends State<MenuEdit> {
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10.0),
                                   bottomLeft: Radius.circular(10.0)),
-                              child: Image.asset(
-                                "assets/images/back.png",
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
-                              ),
+                              child: _tempPicture(context),
                             ),
                             Column(
                               children: [
@@ -315,6 +348,7 @@ class _MenuEditState extends State<MenuEdit> {
                                                 .elementAt(index)
                                                 .menu
                                                 .elementAt(ind));
+                                        deleteMenu(ind.toString());
                                       });
                                     })
                               ],
@@ -394,7 +428,9 @@ class _MenuEditState extends State<MenuEdit> {
                               child: Text('Set picture'),
                               onPressed: () {
                                 setState(() {
-                                  //
+                                  setState(() {
+                                    _showChoice(context);
+                                  });
                                 });
                               },
                             ),
@@ -404,6 +440,8 @@ class _MenuEditState extends State<MenuEdit> {
                               child: Text(' Add '),
                               onPressed: () {
                                 setState(() {
+                                  addMenu(temp1.text, temp2.text, temp4.text,
+                                      temp3.text, index);
                                   Restaurants.getRestaurants()
                                       .elementAt(index)
                                       .menu
@@ -505,4 +543,40 @@ class CustomSearchDelegate extends SearchDelegate {
       itemCount: suggestionList.length,
     );
   }
+}
+
+void addMenu(String name, String details, String category, String price,
+    int index) async {
+  await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
+    print('connected for edit menu');
+
+    String order = "AddMenu-" +
+        index.toString() +
+        "-" +
+        name +
+        "-" +
+        details +
+        "-" +
+        category +
+        "-" +
+        price;
+    serverSocket.writeln(order);
+  });
+}
+
+/*void setMenus(List<Food> menu) async {
+  await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
+    print('connected for put restaurant menu');
+    serverSocket.listen((socket) {}).onDone(() {});
+    serverSocket.writeln(order);
+  });
+}*/
+
+void deleteMenu(String ind) async {
+  await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
+    print('connected for delete an item in menu');
+
+    String order = "Delete_Menu-" + ind + "-" + index.toString();
+    serverSocket.writeln(order);
+  });
 }

@@ -205,7 +205,7 @@ class _mainPanelState extends State<mainPanel> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => areas()));
+                                      builder: (context) => Areas()));
                             },
                           ),
                           Column(

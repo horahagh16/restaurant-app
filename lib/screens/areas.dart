@@ -4,12 +4,12 @@ import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 
-class areas extends StatefulWidget {
+class Areas extends StatefulWidget {
   @override
-  _areasState createState() => _areasState();
+  _AreasState createState() => _AreasState();
 }
 
-class _areasState extends State<areas> {
+class _AreasState extends State<Areas> {
   TextEditingController area;
   List<String> address = List.empty(growable: true);
 

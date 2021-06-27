@@ -72,6 +72,7 @@ class _PopupDialogState extends State<PopupDialog> {
   bool s4 = false;
   bool s5 = false;
   bool s6 = false;
+  String resKind;
 
   @override
   void initState() {
@@ -340,6 +341,9 @@ class _PopupDialogState extends State<PopupDialog> {
                     !is_alreadyused(
                         phoneNumber.text, Restaurants.restaurants)) {
                   setState(() {
+                    resKind = kind.toString();
+                    send(restaurantName.text, resKind, phoneNumber.text,
+                        pass.text, address.text);
                     Restaurants.add(Restaurant(restaurantName.text,
                         address.text, kind, phoneNumber.text, pass.text));
                     index = Restaurants.restaurants.length - 1;
@@ -471,24 +475,25 @@ class _PopupDialogState extends State<PopupDialog> {
           )
         ]).show();
   }
+}
 
-/*  void send() async {
-  //  if (phoneNumber.text.isNotEmpty && pass.text.isNotEmpty) {
-      await Socket.connect('192.168.1.246', 1381)
-          .then((serverSocket) {
-        print('connected');
-        serverSocket.write('login');
-        serverSocket.write(phoneNumber.text);
-        serverSocket.write(pass.text);
-        serverSocket.listen((socket) {
-            show = String.fromCharCodes(socket).trim();
-            print(show);
-            setState(() {
+void send(
+    String name, String kind, String phone, String pass, String address) async {
+  await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
+    print('connected for register');
 
-            });
-
-        });
-      });
-    //}
-  }*/
+    String farman = "AddRestaurant-" +
+        name +
+        "-" +
+        phone +
+        "-" +
+        pass +
+        "-" +
+        kind +
+        "-" +
+        address +
+        "-" +
+        " ";
+    serverSocket.writeln(farman);
+  });
 }

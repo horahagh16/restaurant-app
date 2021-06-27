@@ -2,7 +2,6 @@ import 'package:restaurant_app/modals/comment.dart';
 import 'package:restaurant_app/modals/resMenu.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
 import 'Food.dart';
-import 'FoodCategory.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
 
 class Restaurant {
