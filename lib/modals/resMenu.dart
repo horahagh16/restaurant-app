@@ -348,7 +348,7 @@ class _MenuEditState extends State<MenuEdit> {
                                                 .elementAt(index)
                                                 .menu
                                                 .elementAt(ind));
-                                        deleteMenu(ind.toString());
+                                        //deleteMenu(ind.toString());
                                       });
                                     })
                               ],

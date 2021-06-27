@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 
@@ -141,20 +139,12 @@ class _commentState extends State<comment> {
                       ),
                     ],
                   ),
-                  tileColor:Color(0xfff5f5f5),
+                  tileColor: Color(0xfff5f5f5),
                 ),
               ),
             );
           }),
     );
-  }
-}
-
-class Accept {
-  static bool accept = false;
-
-  static void convert() {
-    accept = !accept;
   }
 }
 
@@ -174,113 +164,3 @@ class ShowAnswer {
     return ans;
   }
 }
-/*
-ListView
-(
-children: [
-GestureDetector
-(
-child: Card
-(
-child: ListTile
-(
-title: Text
-("COMMENT
-"
-)
-,
-subtitle: Row
-(
-children: [
-Text
-("Accept: 
-"
-)
-,
-Switch
-(
-value: Accept.accept,onChanged: (
-value) {
-setState(() {
-Accept.convert();
-});
-},
-activeTrackColor: Colors.lightGreenAccent[100
-]
-,
-activeColor: Colors.green,)
-,
-]
-,
-)
-,
-trailing: Column
-(
-children: [
-RaisedButton
-(
-child: Text
-("ANSWER
-"
-,
-style: TextStyle
-(
-color: Colors.white),
-)
-,
-disabledColor: Color
-(0xff7f1019)
-,
-color: Color
-(0xff7f1019)
-,
-onPressed: () {
-showModalBottomSheet(
-context: context,
-builder: (context) {
-return Container(
-padding: EdgeInsets.all(5),
-child: SingleChildScrollView(
-child: Container(
-child: Column(
-children: [
-Padding(
-padding: EdgeInsets.only(
-left: 15, right: 15, bottom: 30),
-child: TextField(
-controller: answer,
-keyboardType: TextInputType.multiline,
-maxLines: null,
-decoration: InputDecoration(
-labelText: ShowAnswer.getAnswer()),
-),
-),
-ElevatedButton(
-child: Text('SEND'),
-onPressed: () {
-setState(() {
-ShowAnswer.deleter();
-ShowAnswer.add(answer.text);
-Navigator.pop(context);
-});
-},
-)
-],
-),
-),
-),
-);
-});
-},
-)
-,
-]
-,
-)
-,
-tileColor: Color
-(0xfffffee0),
-),
-),
-)
-]),*/

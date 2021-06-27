@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
-import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 
@@ -70,7 +69,8 @@ class _AreasState extends State<Areas> {
                     onPressed: () {
                       setState(() {
                         Area.add(area.text);
-                        print(Restaurants.restaurants.elementAt(index).getArea());
+                        print(
+                            Restaurants.restaurants.elementAt(index).getArea());
                         area.clear();
                         //Navigator.pop(context);
                       });

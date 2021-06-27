@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
-import 'package:restaurant_app/screens/OrderList.dart';
 
 import 'loginScreen.dart';
 

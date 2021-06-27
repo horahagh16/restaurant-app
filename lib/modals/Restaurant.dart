@@ -11,14 +11,13 @@ class Restaurant {
   String phoneNumber;
   String password;
   List<Comment> comment = [Comment("thanks"), Comment("hi")];
-  List<OrderDetails> orders = List.empty(growable: true);
-
-  /*[
-    OrderDetails("salad", 40000, DateTime.now(), 1234, "name1", false),
-    OrderDetails("salad", 40000, DateTime.now(), 1237, "name5", false),
-    OrderDetails("sandwich", 70000, DateTime.now(), 1222, "name2", false)
-  ];*/
-  List<Food> menu = [Food("food", "beef", 20000, "all")];
+  List<OrderDetails> orders = /*List.empty(growable: true);*/
+      [
+    OrderDetails("salad", 40000, DateTime.now(), 123477, "narges", false),
+    OrderDetails("salad", 40000, DateTime.now(), 123776, "hora", false),
+    OrderDetails("sandwich", 70000, DateTime.now(), 122254, "ali", false)
+  ];
+  List<Food> menu = [Food("Caesar salad", "chicken,lettuce,...", 40000, "all")];
 
   // List.empty(growable: true);
 

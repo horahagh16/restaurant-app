@@ -1,12 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
-import 'package:restaurant_app/modals/constant.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'Home.dart';
-import 'mainPanel.dart';
 
 int index;
 
@@ -16,8 +13,6 @@ class PopupDialog extends StatefulWidget {
 }
 
 class _PopupDialogState extends State<PopupDialog> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   bool is_alreadyused(String number, List<Restaurant> list) {
     bool status = false;
     for (Restaurant res in list) {
@@ -37,18 +32,11 @@ class _PopupDialogState extends State<PopupDialog> {
 
   bool is_passCorrect(String number, String pass, List<Restaurant> list) {
     bool status = false;
-    /*if (list.contains(number) && list.contains(pass)) {
-      status = true;
-    }*/
     for (Restaurant res in list) {
       if (res.phoneNumber.contains(number) && res.password.contains(pass))
         status = true;
     }
     return status;
-  }
-
-  bool is_correct(String password) {
-    bool status = true;
   }
 
   bool _obscureText = true;
@@ -291,7 +279,6 @@ class _PopupDialogState extends State<PopupDialog> {
                     is_alreadyused(phoneNumber.text, Restaurants.restaurants)
                         ? 'this number is not valid or it was taken'
                         : null,
-                //regExp.hasMatch(phoneNumber.toString())?
               ),
             ),
             TextField(

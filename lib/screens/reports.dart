@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
-import 'package:restaurant_app/screens/OrderList.dart';
 import 'package:restaurant_app/screens/loginScreen.dart';
 
 class report extends StatefulWidget {
@@ -20,9 +19,6 @@ class _reportState extends State<report> {
   static List<Widget> _widgetOptions = <Widget>[
     MyStatefulWidget(),
     Mystatefull(),
-    Text(
-      'Index 1: Business',
-    ),
   ];
 
   @override
