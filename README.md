@@ -4,17 +4,25 @@
 A new Flutter application for Advanced Programming at SBU. Spring 1400.
 
 Main menu
-![Screenshot_1622635540](https://user-images.githubusercontent.com/79784901/120478789-75103400-c3c2-11eb-9401-9928f3b0f293.png)
+![21](https://user-images.githubusercontent.com/79784901/123555627-1e690080-d79c-11eb-9814-32d7e8f42c2a.png)
+
 
 Register menu
 ![Screenshot_1622635590](https://user-images.githubusercontent.com/79784901/120479012-b56fb200-c3c2-11eb-9b3f-70a9da9a77f8.png)
 
 Edit menu
-![Screenshot_1622635672](https://user-images.githubusercontent.com/79784901/120479181-e51eba00-c3c2-11eb-9f81-45d140adc059.png)
+![26](https://user-images.githubusercontent.com/79784901/123555637-2f197680-d79c-11eb-9e98-8dd2c8d6f668.png)
+
 
 Manage comments
-![Screenshot_1622635653](https://user-images.githubusercontent.com/79784901/120479298-07b0d300-c3c3-11eb-8cc9-309e1340e574.png)
+![22](https://user-images.githubusercontent.com/79784901/123555641-3771b180-d79c-11eb-85bd-77bb93274e8e.png)
+
 
 Reports
-![Screenshot_1622635726](https://user-images.githubusercontent.com/79784901/120479361-1bf4d000-c3c3-11eb-86bd-a35b5bc20bf0.png)
+![24](https://user-images.githubusercontent.com/79784901/123555660-4c4e4500-d79c-11eb-9ad5-989948fd597f.png)
+![25](https://user-images.githubusercontent.com/79784901/123555644-3c366580-d79c-11eb-82b1-417debab5707.png)
+
+Orders
+![23](https://user-images.githubusercontent.com/79784901/123555667-56704380-d79c-11eb-8fd7-6cbea4f02b73.png)
+
 
