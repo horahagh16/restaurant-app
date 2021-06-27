@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/screens/Home.dart';
 import 'dart:io';
 import 'package:restaurant_app/modals/Restaurant.dart';
 import 'package:restaurant_app/modals/Restaurants.dart';
@@ -8,30 +7,33 @@ import 'package:restaurant_app/modals/Food.dart';
 
 void main() {
   Restaurants.add(
-      Restaurant("farsi", 'dolat', ["iranian"], "09123456789", "abc1234"));
+      Restaurant("Farsi", 'dolat', ["iranian"], "09123456789", "abc1234"));
   Restaurants.restaurants
       .elementAt(0)
       .menu
-      .add(Food("kabab", "kobide", 200000, "main course"));
+      .add(Food("kabab koubide", "beef", 800000, "main course"));
   Restaurants.add(Restaurant(
-      "perperook", 'pasdaran', ["fastfood"], "09121234567", "def1234"));
+      "Perperook", 'pasdaran', ["fastfood"], "09121234567", "def1234"));
   Restaurants.add(
-      Restaurant("nayeb", 'niavaran', ["iranian"], "09121231212", "ghi1234"));
+      Restaurant("Nayeb", 'niavaran', ["iranian"], "09121231212", "ghi1234"));
 
   Restaurants.restaurants
       .elementAt(1)
       .menu
-      .add(Food("french fries", "mini size", 10000, "dessert"));
+      .add(Food("French fries", "potato", 10000, "dessert"));
+  Restaurants.restaurants
+      .elementAt(1)
+      .menu
+      .add(Food("Caesar salad", "chicken,lettuce,...", 40000, "all"));
   Restaurants.restaurants
       .elementAt(2)
       .menu
-      .add(Food("mashroom soup", "kobide", 200000, "appetiezer"));
-   send();
+      .add(Food("Mashroom soup", "chicken,mashroom,...", 40000, "appetiezer"));
+  isConnect();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,31 +44,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void send() async {
+void isConnect() async {
   await Socket.connect('10.0.2.2', 1381).then((serverSocket) {
-    print('connected');
-    String str = "";
-    String address = "";
-    String name = "";
-    String phoneNumber = "";
-    String pass = "";
-    /*String farman="AddCustomer-sm-09122221122-pass123-oonja-famil";
-    serverSocket.writeln(farman);
-    serverSocket.writeln("login");
-    serverSocket.listen((socket) {
-      str = String.fromCharCodes(socket).trim();
-      print(str);
-      var string = str.split("-");
-      name = string[0];
-      address = string[1];
-      phoneNumber = string[2];
-      pass = string[3];
-      Restaurants.add(
-          Restaurant(name, address, ["iranian"], phoneNumber, pass));
-      print(Restaurants.restaurants.last.name);
-      print(Restaurants.restaurants.last.address);
-      print(Restaurants.restaurants.last.password);
-    });
-    Restaurants.add(restaurant());*/
+    print('connected to server');
+    serverSocket.writeln('restaurant connected to server');
   });
 }

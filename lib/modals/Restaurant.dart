@@ -1,5 +1,4 @@
 import 'package:restaurant_app/modals/comment.dart';
-import 'package:restaurant_app/modals/resMenu.dart';
 import 'package:restaurant_app/screens/OrderList.dart';
 import 'Food.dart';
 import 'package:restaurant_app/modals/supportArea.dart';
@@ -10,16 +9,17 @@ class Restaurant {
   List kind = List.empty(growable: true);
   String phoneNumber;
   String password;
-  List<Comment> comment = [Comment("thanks"), Comment("hi")];
+  List<Comment> comment = [
+    Comment("The food was hot and arrived on time,thanks"),
+    Comment("It tasted very bad...")
+  ];
   List<OrderDetails> orders = /*List.empty(growable: true);*/
       [
     OrderDetails("salad", 40000, DateTime.now(), 123477, "narges", false),
-    OrderDetails("salad", 40000, DateTime.now(), 123776, "hora", false),
-    OrderDetails("sandwich", 70000, DateTime.now(), 122254, "ali", false)
+    OrderDetails("chicken,salad", 40000, DateTime.now(), 123776, "hora", false),
+    OrderDetails("water", 1000, DateTime.now(), 122254, "ali", false)
   ];
-  List<Food> menu = [Food("Caesar salad", "chicken,lettuce,...", 40000, "all")];
-
-  // List.empty(growable: true);
+  List<Food> menu = List.empty(growable: true);
 
   double star = 0;
   int sta = 0;

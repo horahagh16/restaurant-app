@@ -104,7 +104,6 @@ class _mainPanelState extends State<mainPanel> {
                               fit: BoxFit.fill,
                             ),
                             onTap: () {
-                              print(index);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
